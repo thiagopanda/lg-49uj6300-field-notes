@@ -1,9 +1,7 @@
 # 49UJ6300-UA field log
 
-Static page for the 24 Oct 2026 session on an LG 49UJ6300-UA running webOS TV Lite 3.9.3-6280413.
+Field log for rooting an LG 49UJ6300-UA on webOS TV Lite 3.9.3-6280413 (manufacturing firmware 06.10.55) with [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) v0.0.10 and Homebrew Channel, then turning promo settings off without deleting firmware packages.
 
 Open `index.html` in a browser. Styles are in that file. It does not call a network.
 
-`private/SESSION.md` is the full session memory, including device identifiers and credentials. It is gitignored. Do not publish it.
-
-The public page links the upstream tools and records what this set did. The USB trigger itself is the procedure in the dejavuln-autoroot v0.0.10 readme, which is linked from the page.
+No passphrases, keys, serial numbers, network addresses, or other device identifiers are in this repository. The USB steps themselves are the upstream release readme, which the page links.

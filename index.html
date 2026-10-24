@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LGwebOSTV — 49UJ6300 field log</title>
+  <style>
+    :root {
+      --bg: #070a08;
+      --panel: #0c1210;
+      --bezel: #161c18;
+      --text: #b7ffcf;
+      --dim: #5d8f72;
+      --ok: #5dff9a;
+      --warn: #e2c15a;
+      --bad: #ff5d5d;
+      --line: #1c2a22;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(1200px 700px at 50% -10%, #122018 0%, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "SF Mono", "ui-monospace", "Cascadia Mono", "Menlo", "Consolas", monospace;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.16) 0px,
+        rgba(0, 0, 0, 0.16) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      mix-blend-mode: multiply;
+      z-index: 4;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+
+    .crt {
+      background: linear-gradient(180deg, #101814 0%, var(--panel) 40px);
+      border: 1px solid #243028;
+      border-radius: 12px;
+      box-shadow:
+        0 0 0 1px #000,
+        0 24px 80px rgba(0, 0, 0, 0.45),
+        inset 0 0 80px rgba(80, 255, 160, 0.03);
+      overflow: hidden;
+    }
+
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 12px;
+      background: var(--bezel);
+      border-bottom: 1px solid #000;
+      color: var(--dim);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .dots { display: flex; gap: 6px; }
+    .dots i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: block;
+      background: #3a463e;
+    }
+    .dots i:nth-child(1) { background: #ff5f57; }
+    .dots i:nth-child(2) { background: #febc2e; }
+    .dots i:nth-child(3) { background: #28c840; }
+
+    .titlebar span { margin-left: 8px; }
+
+    .screen { padding: 22px 22px 28px; }
+
+    .prompt { color: var(--ok); }
+    .dim { color: var(--dim); }
+    .bad { color: var(--bad); }
+    .warn { color: var(--warn); }
+    .ok { color: var(--ok); }
+
+    h1 {
+      margin: 18px 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    p { margin: 8px 0; }
+
+    pre {
+      margin: 12px 0 0;
+      padding: 14px 14px 16px;
+      background: #070c09;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow-x: auto;
+      color: var(--text);
+      font: inherit;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 6px 8px 6px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--dim);
+      font-weight: 500;
+      width: 34%;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0 6px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: var(--ok);
+      vertical-align: text-bottom;
+      animation: blink 1.05s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    footer {
+      margin-top: 18px;
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    a { color: var(--ok); }
+
+    ol {
+      margin: 8px 0 0;
+      padding-left: 1.3em;
+    }
+
+    li { margin: 6px 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="crt">
+      <div class="titlebar">
+        <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span>root@LGwebOSTV: ~ — 49uj6300-field-log</span>
+      </div>
+      <div class="screen">
+        <div class="dim">Linux LGwebOSTV 4.4.3-119.drd4tv.6 armv7l</div>
+        <div><span class="prompt">prisoner@LGwebOSTV</span><span class="dim">:/media/developer$</span> nyx-osinfo</div>
+
+        <h1>49UJ6300-UA &nbsp; webOS TV Lite 3.9.3</h1>
+        <p>24 Oct 2026. Local set, owner present. Promo software was switched off after root. Firmware packages stayed on disk.</p>
+
+        <table>
+          <tr><th>release</th><td>3.9.3-6280413 &nbsp; dreadlocks2-dudhwa &nbsp; API 4.1.0</td></tr>
+          <tr><th>firmware</th><td>06.10.55 &nbsp; built 28 Apr 2025</td></tr>
+          <tr><th>board</th><td>M16P_DVB &nbsp; HE_DTV_W17M_AFADATAA</td></tr>
+          <tr><th>image</th><td>starfish-atsc-secured &nbsp; ATSC &nbsp; no 3D &nbsp; no DVR</td></tr>
+          <tr><th>memory</th><td>1.5 GB RAM, about 200 MB free, swap already in use</td></tr>
+          <tr><th>storage</th><td>4 GB</td></tr>
+        </table>
+
+        <h1>Developer Mode</h1>
+        <div><span class="prompt">prisoner@LGwebOSTV</span><span class="dim">:/media/developer$</span> ssh -p 9922</div>
+        <p>Developer Mode 1.12.2 was on. The jail user is <span class="ok">prisoner</span> on port 9922, OpenSSH 6.1. macOS OpenSSH completed the handshake only after the algorithms were pinned:</p>
+        <pre>KexAlgorithms=ecdh-sha2-nistp256
+HostKeyAlgorithms=ssh-rsa
+PubkeyAcceptedAlgorithms=ssh-rsa
+Ciphers=aes128-ctr
+MACs=hmac-sha1</pre>
+        <p>The key server on port 9991 served <span class="ok">webos_rsa</span>. From that jail, <span class="ok">luna-send</span> is mode 700 and returned permission denied. <span class="ok">luna-send-pub</span> connected and printed nothing. The system image is read-only. USB mounts visible in <span class="ok">/proc/partitions</span> were not visible inside the jail, and the jail cannot <span class="ok">mknod</span> a block device.</p>
+        <p>SSAP on port 3000 registered after an on-screen Allow. <span class="ok">listApps</span> returned 75 apps. The only <span class="ok">removable: true</span> entries were Developer Mode and six store stubs: Netflix 0.0.4, Prime Video 0.0.16, Disney+ 0.0.47, Hulu 0.0.32, Sling TV 0.0.98, LG Channels 0.0.29. There is no SSAP uninstall method.</p>
+        <p>Firmware apps with <span class="ok">removable: false</span> include Advertisement (<span class="ok">com.webos.app.adapp</span>), LivePlus / ACR (<span class="ok">acrcomponent</span>, <span class="ok">acrhdmi1</span>–<span class="ok">acrhdmi4</span>, <span class="ok">acroverlay</span>, all 1.0.7), Brand Shop, Store Demo, Customer Support, LG Content Store, the browser, and Live TV.</p>
+        <p>The SSAP client is the small Node client from <a href="https://github.com/0xbyt4/lg-webos1-hub">0xbyt4/lg-webos1-hub</a>. That repository is a webOS 1 hub. It is not a debloater.</p>
+
+        <h1>Wrong generation</h1>
+        <p><a href="https://gist.github.com/CasperDkk/7520efa763d9e23c531c2e8564f9bb4e">CasperDkk’s webos-debloat gist</a> was written on webOS 26, firmware 11.2. It hides tiles, stops the preload manager, and flips settings. It never deletes the root filesystem. This set has no preload-manager policy and no webOS 26 boot hook. Keys such as <span class="ok">sportsAlarm</span>, <span class="ok">livePromotion</span>, and <span class="ok">contentRecommendation</span> are not the keys stored here.</p>
+        <p><a href="https://github.com/lasharor/cleanyourtv-WebOS">cleanyourtv-WebOS</a> stops on webOS 4 and older. <a href="https://github.com/rorygallagher2024/glasshouse">glasshouse</a> expects Homebrew root already. <a href="https://github.com/OmkarK97/webos-vibehack">webos-vibehack</a> is a Developer Mode launcher and does not disable packages.</p>
+
+        <h1>Method</h1>
+        <p>Choice followed <a href="https://www.webosbrew.org/rooting/exploits/">webOS Homebrew’s exploit list</a>.</p>
+        <table>
+          <tr><th>RootMyTV</th><td><span class="status bad">PATCHED</span> &nbsp; around 2022 &nbsp; <a href="https://rootmy.tv/">rootmy.tv</a></td></tr>
+          <tr><th>crashd</th><td><span class="status bad">WEBOS 4+</span> &nbsp; current Dev Mode jail blocks it &nbsp; <a href="https://gist.github.com/throwaway96/e811b0f7cc2a705a5a476a8dfa45e09f">gist</a></td></tr>
+          <tr><th>GetMeIn</th><td><span class="status bad">JAIL 2024-04</span> &nbsp; this set was already on Dev Mode 1.12.2</td></tr>
+          <tr><th>faultmanager</th><td><span class="status warn">NOT RUN</span> &nbsp; readme points webOS 3.5 at DejaVuln &nbsp; <a href="https://github.com/throwaway96/faultmanager-autoroot">repo</a></td></tr>
+          <tr><th>NVM debug</th><td><span class="status bad">HARDWARE</span> &nbsp; high voltage &nbsp; not used</td></tr>
+          <tr><th>dejavuln</th><td><span class="status ok">USED</span> &nbsp; v0.0.10 worked on 06.10.55 &nbsp; <a href="https://github.com/throwaway96/dejavuln-autoroot">repo</a></td></tr>
+        </table>
+        <p><a href="https://github.com/throwaway96/dejavuln-autoroot">dejavuln-autoroot</a> by throwaway96, AGPL. DejaVuln is credited to <a href="https://jacobcx.dev/">Jacob Clayden</a>. The script also credits <a href="https://www.bitdefender.com/blog/labs/vulnerabilities-identified-in-lg-webos/">Bitdefender’s LG webOS write-up</a>. The release was used as published. The script was not rewritten.</p>
+        <pre>dejavuln-autoroot v0.0.10
+sha256 83f39e95ec702e6370df65bde16acced9861a87e473f763a9e55de948aa7756f
+autoroot.sh          12712 bytes
+hbchannel.ipk      1699858 bytes   Homebrew Channel 0.7.2</pre>
+        <p>The bundled ipk is <a href="https://github.com/webosbrew/webos-homebrew-channel/releases/tag/v0.7.2">webos-homebrew-channel v0.7.2</a>.</p>
+
+        <h1>Run</h1>
+        <ol>
+          <li>Developer Mode was already on. SSAP pairing was accepted on the TV. The inventory above came from that access.</li>
+          <li>A FAT32 stick labeled LG, about 2 GB, UUID 0474-A891, was mounted on the Mac. The official release was extracted at the volume root, beside the existing “LG Smart TV” folder.</li>
+          <li>Photo &amp; Video opens <span class="ok">tmp</span> and hides the trigger file. The Music app is the player the <a href="https://github.com/throwaway96/dejavuln-autoroot">release readme</a> names. Playing that file produced a root-owned <span class="ok">/tmp/autoroot.*</span> directory.</li>
+          <li>Homebrew Channel (<span class="ok">org.webosbrew.hbchannel</span>) appeared. Persistence is <span class="ok">/var/luna/preferences/devmode_enabled</span> as a directory. A marker named <span class="ok">autoroot.telnet</span> was not created.</li>
+          <li>A reboot with Developer Mode still installed kept the Homebrew icon. The release says to uninstall Developer Mode before rebooting, and never to install it again once the set is rooted.</li>
+          <li>Developer Mode was removed. A second reboot kept Homebrew. Port 9922 closed.</li>
+          <li>Telnet was on. It was turned off in Homebrew, and SSH was turned on. Port 23 then refused connections. Port 22 accepted them.</li>
+        </ol>
+
+        <h1>Root shell</h1>
+        <div><span class="prompt">root@LGwebOSTV</span><span class="dim">:~#</span> ss -ltn</div>
+        <table>
+          <tr><th>ssh 22</th><td><span class="status ok">OPEN</span> &nbsp; dropbear 2022.83 &nbsp; user root</td></tr>
+          <tr><th>telnet 23</th><td><span class="status ok">CLOSED</span> &nbsp; unauthenticated on this firmware</td></tr>
+          <tr><th>dev ssh 9922</th><td><span class="status ok">CLOSED</span> &nbsp; Developer Mode removed</td></tr>
+          <tr><th>devmode_enabled</th><td>directory &nbsp; root persistence</td></tr>
+          <tr><th>webosbrew_sshd_enabled</th><td>present</td></tr>
+          <tr><th>webosbrew_telnet_disabled</th><td>present</td></tr>
+        </table>
+        <p>Homebrew’s default root password and <span class="ok">authorized_keys</span> setup are in the <a href="https://github.com/webosbrew/webos-homebrew-channel">webos-homebrew-channel</a> readme. A key was not installed.</p>
+        <p><span class="ok">luna-send</span> as root reaches SettingsService, then the parent exits immediately. The JSON arrives in a redirected file about a second later. Waiting about three seconds, then reading the file, returns the payload. <span class="ok">{"keys":["option"]}</span> with no category comes back as “There is no matched result from DB”. The working shape is <span class="ok">category</span> plus <span class="ok">keys</span>.</p>
+        <p><span class="ok">systemprefs.db</span> is the old Palm table, 36 rows, and does not hold these keys. They live in <span class="ok">/var/luna/preferences/option</span> and <span class="ok">general</span>, each with an <span class="ok">.md5</span> sibling. <span class="ok">check_settings_db_health.sh</span> can factory-reset settings. It was not run.</p>
+
+        <h1>Settings readback</h1>
+        <p>Copies of <span class="ok">option</span>, <span class="ok">general</span>, and both md5 files were saved at <span class="ok">/home/root/debloat-backup</span> before the write. Both calls returned <span class="ok">{"returnValue":true}</span>. A second read at 12:20 local matched this table. <span class="ok">personalRecommend</span> also flipped <span class="ok">changedByUser</span> to true.</p>
+        <pre>luna-send -n 1 -w 8000 luna://com.webos.settingsservice/setSystemSettings \
+  '{"category":"option","settings":{"livePlus":"off","channelplus":"off","watchedListCollection":"off","webOSPromotionVideo":"off","demoMode":"off"}}'
+
+luna-send -n 1 -w 8000 luna://com.webos.settingsservice/setSystemSettings \
+  '{"category":"general","settings":{"adCookie":"off","homeAutoLaunch":"off","homePromotion":"off","personalRecommend":{"changedByUser":true,"value":"off"}}}'</pre>
+        <table>
+          <tr><th>livePlus</th><td><span class="status ok">OFF</span> &nbsp; option &nbsp; was on</td></tr>
+          <tr><th>channelplus</th><td><span class="status ok">OFF</span> &nbsp; option &nbsp; was on</td></tr>
+          <tr><th>webOSPromotionVideo</th><td><span class="status ok">OFF</span> &nbsp; option &nbsp; was on</td></tr>
+          <tr><th>watchedListCollection</th><td><span class="status ok">OFF</span> &nbsp; option &nbsp; was on</td></tr>
+          <tr><th>demoMode</th><td><span class="status ok">OFF</span> &nbsp; option &nbsp; was on</td></tr>
+          <tr><th>homePromotion</th><td><span class="status ok">OFF</span> &nbsp; general &nbsp; was on</td></tr>
+          <tr><th>homeAutoLaunch</th><td><span class="status ok">OFF</span> &nbsp; general &nbsp; was on</td></tr>
+          <tr><th>adCookie</th><td><span class="status ok">OFF</span> &nbsp; general &nbsp; was on</td></tr>
+          <tr><th>personalRecommend</th><td><span class="status ok">OFF</span> &nbsp; general &nbsp; value was on</td></tr>
+          <tr><th>quickStartMode</th><td><span class="status warn">HELD</span> &nbsp; on &nbsp; Homebrew icon</td></tr>
+          <tr><th>storeMode</th><td><span class="status warn">HELD</span> &nbsp; home</td></tr>
+          <tr><th>storeMode2</th><td><span class="status warn">HELD</span> &nbsp; on</td></tr>
+          <tr><th>storeModeVideo</th><td><span class="status warn">HELD</span> &nbsp; off</td></tr>
+          <tr><th>customizedAd</th><td><span class="status warn">HELD</span> &nbsp; already off</td></tr>
+          <tr><th>lmt</th><td><span class="status warn">HELD</span> &nbsp; already off</td></tr>
+        </table>
+        <p><span class="ok">sam</span> exposes <span class="ok">updateLaunchPoint</span> and <span class="ok">removeLaunchPoint</span>. No hide call was made. The launcher list taken before the write still included LG Channels, LG Content Store, Search, and the streaming stubs. Whether the home screen drops the LG Channels tile after <span class="ok">channelplus</span> goes off was not rechecked.</p>
+
+        <h1>Left in place</h1>
+        <table>
+          <tr><th>firmware packages</th><td><span class="status warn">KEPT</span> &nbsp; rootfs was not remounted for removal</td></tr>
+          <tr><th>streaming stubs</th><td><span class="status warn">KEPT</span> &nbsp; Netflix, Prime, Disney+, Hulu, Sling</td></tr>
+          <tr><th>Developer Mode</th><td><span class="status ok">UNINSTALLED</span> &nbsp; do not install it again while rooted</td></tr>
+          <tr><th>locale and alerts</th><td><span class="status warn">KEPT</span> &nbsp; zip, country, language, pointer, emergency alert, last input</td></tr>
+        </table>
+
+        <h1>Sources</h1>
+        <table>
+          <tr><th>dejavuln-autoroot</th><td><a href="https://github.com/throwaway96/dejavuln-autoroot">repo</a> &nbsp; <a href="https://github.com/throwaway96/dejavuln-autoroot/releases/tag/v0.0.10">v0.0.10</a> &nbsp; USB procedure and Homebrew install</td></tr>
+          <tr><th>Jacob Clayden</th><td><a href="https://jacobcx.dev/">jacobcx.dev</a> &nbsp; credited with finding DejaVuln</td></tr>
+          <tr><th>Bitdefender</th><td><a href="https://www.bitdefender.com/blog/labs/vulnerabilities-identified-in-lg-webos/">LG webOS write-up</a> &nbsp; credited in the same script</td></tr>
+          <tr><th>Homebrew Channel</th><td><a href="https://github.com/webosbrew/webos-homebrew-channel">repo</a> &nbsp; <a href="https://github.com/webosbrew/webos-homebrew-channel/releases/tag/v0.7.2">v0.7.2</a></td></tr>
+          <tr><th>webOS Homebrew</th><td><a href="https://www.webosbrew.org/rooting/">Rooting</a> &nbsp; <a href="https://www.webosbrew.org/rooting/exploits/">exploits</a></td></tr>
+          <tr><th>faultmanager</th><td><a href="https://github.com/throwaway96/faultmanager-autoroot">repo</a> &nbsp; read, not run</td></tr>
+          <tr><th>crashd</th><td><a href="https://gist.github.com/throwaway96/e811b0f7cc2a705a5a476a8dfa45e09f">instructions</a> &nbsp; webOS 4+ only</td></tr>
+          <tr><th>RootMy.TV</th><td><a href="https://rootmy.tv/">rootmy.tv</a> &nbsp; patched for this firmware age</td></tr>
+          <tr><th>webos-debloat</th><td><a href="https://gist.github.com/CasperDkk/7520efa763d9e23c531c2e8564f9bb4e">CasperDkk gist</a> &nbsp; webOS 26 map, not run</td></tr>
+          <tr><th>set aside</th><td><a href="https://github.com/lasharor/cleanyourtv-WebOS">cleanyourtv</a> &nbsp; <a href="https://github.com/rorygallagher2024/glasshouse">glasshouse</a> &nbsp; <a href="https://github.com/OmkarK97/webos-vibehack">webos-vibehack</a></td></tr>
+          <tr><th>lg-webos1-hub</th><td><a href="https://github.com/0xbyt4/lg-webos1-hub">repo</a> &nbsp; SSAP client only</td></tr>
+        </table>
+
+        <div><span class="prompt">root@LGwebOSTV</span><span class="dim">:~#</span> <span class="cursor" aria-hidden="true"></span></div>
+
+        <footer>
+          Public notes for an LG 49UJ6300-UA. Passphrases, keys, and device identifiers are omitted.
+          The private session log sits next to this page and is gitignored.
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
